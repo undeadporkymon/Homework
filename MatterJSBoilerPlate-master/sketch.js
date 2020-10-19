@@ -1,4 +1,4 @@
-
+var bin, binImage;
 const Engine = Matter.Engine;
 const World = Matter.World;
 const Bodies = Matter.Bodies;
@@ -8,7 +8,7 @@ var number = -15;
 
 function preload()
 {
-	
+	binImage=loadImage("dustbingreen.png");
 }
 
 function setup() {
@@ -18,12 +18,15 @@ function setup() {
 	world = engine.world;
 
 	//Create the Bodies Here.
+	bin=createSprite(600, 500, 100,200);
+	bin.addImage(binImage);
+	bin.scale=.7;
 
 	ground_layer = new Ground(400, 650 ,1000, 100);
-	ball = new Ball(100,575);
+	ball = new PAPER(100,575, 50,50,0);
 	box1 = new Box(600,600,150,25);
-	box2 = new Box(505,550,20,100)
-	box3 = new Box(695,550,20,100);
+	box2 = new Box(505,490,20,200)
+	box3 = new Box(695,490,20,200);
 
 	Engine.run(engine);
   
@@ -32,18 +35,12 @@ function setup() {
 
 function draw() {
   rectMode(CENTER);
-  background(0);
-  function keyPressed(){
-	if (keyCode === UP_ARROW){
-	Matter.Body.applyForce(ball.body,ball.body.position,{x:3,y:-13});
-	}else{ 
-		Matter.Body.applyForce(ball.body,ball.body.position,{x:0,y:23});
-	}
-	//I couldn't get gravity working so i made the control when wehre you press
-	//the down arrow after pressing the right arrow it activates gravity
+  background(255);
+
+	
+//Press down arrown to stop
 
 
-}
   ground_layer.display();
   ball.display();
   box1.display();
@@ -55,6 +52,11 @@ function draw() {
 
 }
 
+function keyPressed(){
+	if (keyCode === UP_ARROW){
+	Matter.Body.applyForce(ball.body,ball.body.position,{x:5,y:-20});
+}else{ 
+	Matter.Body.applyForce(ball.body,ball.body.position,{x:0,y:23});
+	}
 
-
-
+}
